@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/ticketFragment">
+
+    <fragment
+        android:id="@+id/ticketFragment"
+        android:name="com.wildan.weighbridge.ui.feature.TicketFragment"
+        android:label="TicketFragment">
+
+        <action
+            android:id="@+id/to_add_ticket"
+            app:destination="@id/addTicketFragment" />
+
+        <action
+            android:id="@+id/to_edit_ticket"
+            app:destination="@id/editTicketFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addTicketFragment"
+        android:name="com.wildan.weighbridge.ui.feature.add.AddTicketFragment"
+        android:label="AddTicketFragment" />
+
+    <fragment
+        android:id="@+id/editTicketFragment"
+        android:name="com.wildan.weighbridge.ui.feature.edit.EditTicketFragment"
+        android:label="EditTicketFragment">
+        <argument
+            android:name="ticketData"
+            app:argType="com.wildan.weighbridge.core.model.TicketItem" />
+    </fragment>
+
+</navigation>

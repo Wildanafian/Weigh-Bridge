@@ -1,0 +1,26 @@
+apply plugin: "org.sonarqube"
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "weight bridge"
+        property "sonar.projectKey", "weight-bridge"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.token", "sqp_20d328c1a0f95ca8aa6a876879acc87a4808f558"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${rootProject.getRootDir().absolutePath}/app/build/reports/kover/report.xml"
+        property "sonar.androidLint.reportPaths", "${rootProject.getRootDir().absolutePath}/app/build/reports/lint-results-debug.xml"
+        property "sonar.coverage.exclusions", "**Fragment**," +
+                " **Adapter**, **Sheet**, **Activity**, **.databinding.**," +
+                " **Factory**, **Hilt**, **HiltModules**, **GeneratedInjector**," +
+                " **BuildConfig, **Provide**, **MembersInjector**, **Const**, " +
+                " **BottomSheet**, **Helper**, **Listener**, **Firebase**, " +
+                " **Dialog**, **ViewHolder**, **MainApp**, **Manifest**, **.xml"+
+                " **Base**"
+    }
+}
+
+
+//project(":core:network") {
+//    sonar {
+//        skipProject = true
+//    }
+//}

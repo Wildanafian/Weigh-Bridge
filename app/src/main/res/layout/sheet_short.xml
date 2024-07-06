@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/space_normal"
+    android:layout_marginEnd="@dimen/space_normal"
+    android:clipToPadding="false"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/space_normal"
+        android:layout_marginBottom="@dimen/space_xxlarge"
+        android:background="@drawable/bg_gray_r30" />
+
+    <TextView
+        style="@style/text_large_medium_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_normal"
+        android:text="@string/short_ticket"
+        android:textAlignment="center" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/space_xxsmall"
+        android:background="@color/gray_border" />
+
+    <TextView
+        style="@style/text_normal_medium_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_normal"
+        android:text="@string/choose_sorting" />
+
+    <RadioGroup
+        android:id="@+id/radiogroup_short"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_normal"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radio_weight_date"
+            style="@style/text_normal_regular_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/selector_radio"
+            android:text="@string/weighting_date" />
+
+        <RadioButton
+            android:id="@+id/radio_driver_name"
+            style="@style/text_normal_regular_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_normal"
+            android:buttonTint="@color/selector_radio"
+            android:text="@string/driver_name" />
+
+        <RadioButton
+            android:id="@+id/radio_license_number"
+            style="@style/text_normal_regular_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_normal"
+            android:buttonTint="@color/selector_radio"
+            android:text="@string/license_number" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btn_close"
+        style="@style/button_normal_medium_white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_large"
+        android:layout_marginTop="@dimen/space_jumbo"
+        android:background="@drawable/bg_primary_r30"
+        android:stateListAnimator="@null"
+        android:text="@string/close"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/btn_pay"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_jumbo" />
+
+</LinearLayout>

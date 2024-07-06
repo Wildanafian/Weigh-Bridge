@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_normal"
+            android:layout_marginEnd="@dimen/space_normal"
+            android:clipToPadding="false"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/space_normal"
+                android:layout_marginBottom="@dimen/space_xxlarge"
+                android:background="@drawable/bg_gray_r30" />
+
+            <TextView
+                style="@style/text_large_medium_black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_normal"
+                android:text="@string/filter_ticket"
+                android:textAlignment="center" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/space_xxsmall"
+                android:background="@color/gray_border" />
+
+            <TextView
+                style="@style/text_normal_medium_black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_normal"
+                android:text="@string/choose_filter" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_weight_date"
+                    style="@style/chipCustomStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/space_normal"
+                    android:paddingTop="@dimen/space_xxxsmall"
+                    android:paddingEnd="@dimen/space_normal"
+                    android:text="@string/weighting_date" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_driver_name"
+                    style="@style/chipCustomStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/space_normal"
+                    android:paddingTop="@dimen/space_xxxsmall"
+                    android:paddingEnd="@dimen/space_normal"
+                    android:text="@string/driver_name" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_license_number"
+                    style="@style/chipCustomStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/space_normal"
+                    android:paddingTop="@dimen/space_xxxsmall"
+                    android:paddingEnd="@dimen/space_normal"
+                    android:text="@string/license_number" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <EditText
+                android:id="@+id/et_input"
+                style="@style/text_normal_regular_black"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_xlarge"
+                android:layout_marginTop="@dimen/space_normal"
+                android:background="@drawable/bg_white_border_gray_r10"
+                android:hint="@string/input_keyword"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences"
+                android:maxLines="1"
+                android:paddingStart="@dimen/space_small"
+                android:paddingEnd="@dimen/space_small" />
+
+            <Button
+                android:id="@+id/btn_close"
+                style="@style/button_normal_medium_white"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_large"
+                android:layout_marginTop="@dimen/space_jumbo"
+                android:background="@drawable/bg_primary_r30"
+                android:stateListAnimator="@null"
+                android:text="@string/use_filter"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toStartOf="@+id/btn_pay"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_jumbo" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

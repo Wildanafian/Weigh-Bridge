@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "391397091323",
+    "project_id": "weighbridge-167b1",
+    "storage_bucket": "weighbridge-167b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391397091323:android:f3e2ff72b0d7bfc4b4cd5e",
+        "android_client_info": {
+          "package_name": "com.wildan.weighbridge"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGpCUaBw22aMwQIHMugY32L05uSfK_Z3M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

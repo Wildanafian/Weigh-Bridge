@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/empty_state"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:layout_width="@dimen/size150"
+        android:layout_height="@dimen/size150"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/space_large"
+        android:src="@drawable/img_empty_state_ilustration"
+        android:contentDescription="@string/there_is_no_ticket_available" />
+
+    <TextView
+        style="@style/text_small_light_gray"
+        android:layout_width="@dimen/size300"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/empty_state_ticket"
+        android:textAlignment="center" />
+
+
+</LinearLayout>

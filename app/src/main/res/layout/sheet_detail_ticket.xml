@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_normal"
+            android:layout_marginEnd="@dimen/space_normal"
+            android:clipToPadding="false"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/space_normal"
+                android:layout_marginBottom="@dimen/space_xxlarge"
+                android:background="@drawable/bg_gray_r30" />
+
+            <TextView
+                style="@style/text_large_medium_black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_normal"
+                android:text="@string/ticket_detail"
+                android:textAlignment="center" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/space_xxsmall"
+                android:background="@color/gray_border" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_normal"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_normal_regular_black"
+                    android:layout_width="@dimen/size150"
+                    android:layout_height="wrap_content"
+                    android:text="@string/driver_name" />
+
+                <TextView
+                    android:id="@+id/tv_driver_name"
+                    style="@style/text_normal_regular_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    tools:text=":   1234" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_normal"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_normal_regular_black"
+                    android:layout_width="@dimen/size150"
+                    android:layout_height="wrap_content"
+                    android:text="@string/license_number" />
+
+                <TextView
+                    android:id="@+id/tv_license_number"
+                    style="@style/text_normal_regular_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    tools:text=":   1234" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_normal"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_normal_regular_black"
+                    android:layout_width="@dimen/size150"
+                    android:layout_height="wrap_content"
+                    android:text="@string/inbound_weight" />
+
+                <TextView
+                    android:id="@+id/tv_inbound_weight"
+                    style="@style/text_normal_regular_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    tools:text=":   1234" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_normal"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_normal_regular_black"
+                    android:layout_width="@dimen/size150"
+                    android:layout_height="wrap_content"
+                    android:text="@string/outbound_weight" />
+
+                <TextView
+                    android:id="@+id/tv_outbound_weight"
+                    style="@style/text_normal_regular_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    tools:text=":   1234" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_normal"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_normal_regular_black"
+                    android:layout_width="@dimen/size150"
+                    android:layout_height="wrap_content"
+                    android:text="@string/net_weight" />
+
+                <TextView
+                    android:id="@+id/tv_net_weight"
+                    style="@style/text_normal_regular_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    tools:text=":   1234" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_normal"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_normal_regular_black"
+                    android:layout_width="@dimen/size150"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_time" />
+
+                <TextView
+                    android:id="@+id/tv_date_time"
+                    style="@style/text_normal_regular_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    tools:text=":   1234" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_edit"
+                style="@style/button_normal_medium_white"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_large"
+                android:layout_marginTop="@dimen/size_large"
+                android:background="@drawable/bg_primary_r30"
+                android:stateListAnimator="@null"
+                android:text="@string/edit"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/btn_delete"
+                style="@style/text_medium_medium_black"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_large"
+                android:layout_marginTop="@dimen/space_normal"
+                android:gravity="center"
+                android:text="@string/delete"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/gray_border" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_jumbo" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
