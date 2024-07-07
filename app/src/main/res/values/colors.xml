@@ -9,4 +9,7 @@
 
     <color name="gray">#9B9B9B</color>
     <color name="gray_border">#DBDBDB</color>
+
+    <color name="ic_launcher_background">#286536</color>
+
 </resources>

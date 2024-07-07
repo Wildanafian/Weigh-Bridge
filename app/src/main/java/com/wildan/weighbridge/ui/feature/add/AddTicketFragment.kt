@@ -2,8 +2,8 @@ package com.wildan.weighbridge.ui.feature.add
 
 import com.wildan.weighbridge.R
 import com.wildan.weighbridge.core.ui.helper.goBack
-import com.wildan.weighbridge.core.ui.helper.listener
 import com.wildan.weighbridge.core.ui.helper.observe
+import com.wildan.weighbridge.core.ui.helper.onTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 
 /*
@@ -22,12 +22,12 @@ class AddTicketFragment : BaseTicketManagementFragment() {
 
     override fun initListener() {
         super.initListener()
-        bind.etInboundWeight.listener {
+        bind.etInboundWeight.onTextChanged {
             checkMandatoryFieldIsNotEmpty()
             calculateNetWeight()
         }
 
-        bind.etOutboundWeight.listener {
+        bind.etOutboundWeight.onTextChanged {
             checkMandatoryFieldIsNotEmpty()
             calculateNetWeight()
         }

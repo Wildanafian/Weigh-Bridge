@@ -1,7 +1,7 @@
 package com.wildan.weighbridge.core.firebase.di
 
+import com.wildan.weighbridge.core.firebase.FirebaseManager
 import com.wildan.weighbridge.core.firebase.FirebaseManagerImpl
-import com.wildan.weighbridge.data.datasource.remote.FirebaseManager
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

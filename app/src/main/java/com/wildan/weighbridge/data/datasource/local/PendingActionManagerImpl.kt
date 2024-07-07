@@ -1,7 +1,7 @@
 package com.wildan.weighbridge.data.datasource.local
 
 import com.wildan.weighbridge.core.common.di.IOThread
-import com.wildan.weighbridge.core.datastore.room.dao.TicketDao
+import com.wildan.weighbridge.core.datastore.dao.TicketDao
 import com.wildan.weighbridge.core.model.PendingActionItem
 import com.wildan.weighbridge.core.model.PendingActionOption
 import com.wildan.weighbridge.core.model.TicketItem
@@ -21,9 +21,7 @@ class PendingActionManagerImpl @Inject constructor(
 ) : PendingActionManager {
 
     override suspend fun getPendingActionList(): List<PendingActionItem> {
-        return withContext(ioDispatcher) {
-            dao.getPendingActionList()
-        }
+        return dao.getPendingActionList()
     }
 
     override suspend fun addNewPendingAction(action: PendingActionOption, data: TicketItem) {
@@ -33,8 +31,6 @@ class PendingActionManagerImpl @Inject constructor(
     }
 
     override suspend fun deletePendingActionById(id: Int) {
-        withContext(ioDispatcher) {
-            dao.deletePendingActionById(id)
-        }
+        dao.deletePendingActionById(id)
     }
 }

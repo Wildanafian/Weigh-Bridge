@@ -2,7 +2,7 @@ package com.wildan.weighbridge.domain
 
 import com.wildan.weighbridge.core.model.TicketItem
 import com.wildan.weighbridge.core.model.base.RemoteResult
-import com.wildan.weighbridge.domain.repository.TicketDataRepository
+import com.wildan.weighbridge.data.repository.TicketDataRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject

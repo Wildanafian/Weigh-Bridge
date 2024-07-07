@@ -1,7 +1,7 @@
 package com.wildan.weighbridge.data.datasource.local
 
 import com.wildan.weighbridge.core.common.di.IOThread
-import com.wildan.weighbridge.core.datastore.room.dao.TicketDao
+import com.wildan.weighbridge.core.datastore.dao.TicketDao
 import com.wildan.weighbridge.core.model.TicketItem
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -19,9 +19,7 @@ class TicketManagerImpl @Inject constructor(
 ) : TicketManager {
 
     override suspend fun cacheTicket(data: TicketItem) {
-        withContext(ioDispatcher) {
-            dao.cacheTicket(data)
-        }
+        dao.cacheTicket(data)
     }
 
     override suspend fun cacheTicketList(data: List<TicketItem>) {
@@ -32,21 +30,15 @@ class TicketManagerImpl @Inject constructor(
     }
 
     override suspend fun getTicketList(): List<TicketItem> {
-        return withContext(ioDispatcher) {
-            dao.getTicketList()
-        }
+        return dao.getTicketList()
     }
 
     override suspend fun editTicket(data: TicketItem) {
-        withContext(ioDispatcher) {
-            dao.editTicket(data)
-        }
+        dao.editTicket(data)
     }
 
     override suspend fun deleteByTicketId(ticketId: String) {
-        withContext(ioDispatcher) {
-            dao.deleteByTicketId(ticketId)
-        }
+        dao.deleteByTicketId(ticketId)
     }
 
 }

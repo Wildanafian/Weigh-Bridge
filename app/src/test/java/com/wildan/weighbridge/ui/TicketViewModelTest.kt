@@ -75,6 +75,7 @@ class TicketViewModelTest : BaseTestInstantTaskExecutorRule() {
         coEvery { ticketUseCase.getTicketList() } returns flowOf(useCaseResponse)
         sut.ticketList.observeForever(observerTicketList)
         sut.getTicketList()
+        delay(200)
 
         verifySequence {
             observerTicketList.onChanged(UIStateData(loading = true))
@@ -92,6 +93,7 @@ class TicketViewModelTest : BaseTestInstantTaskExecutorRule() {
         coEvery { ticketUseCase.getTicketList() } returns flowOf(useCaseResponse)
         sut.ticketList.observeForever(observerTicketList)
         sut.getTicketList()
+        delay(200)
 
         verifySequence {
             observerTicketList.onChanged(UIStateData(loading = true))

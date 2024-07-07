@@ -6,7 +6,7 @@ import com.wildan.weighbridge.core.model.TicketItem
 import com.wildan.weighbridge.core.model.base.RemoteResult
 import com.wildan.weighbridge.data.datasource.local.PendingActionManager
 import com.wildan.weighbridge.data.datasource.local.TicketManager
-import com.wildan.weighbridge.data.datasource.remote.FirebaseManager
+import com.wildan.weighbridge.data.datasource.remote.FirebaseRemote
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -23,7 +23,7 @@ import org.junit.Test
 
 class TicketManagementRepositoryTest {
 
-    private val networkSource: FirebaseManager = mockk()
+    private val networkSource: FirebaseRemote = mockk()
     private val localSource: TicketManager = mockk()
     private val pendingAction: PendingActionManager = mockk()
     private val networkCheck: NetworkChecker = mockk()

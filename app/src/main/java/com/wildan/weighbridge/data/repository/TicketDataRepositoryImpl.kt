@@ -5,8 +5,7 @@ import com.wildan.weighbridge.core.common.network.NetworkChecker
 import com.wildan.weighbridge.core.model.TicketItem
 import com.wildan.weighbridge.core.model.base.RemoteResult
 import com.wildan.weighbridge.data.datasource.local.TicketManager
-import com.wildan.weighbridge.data.datasource.remote.FirebaseManager
-import com.wildan.weighbridge.domain.repository.TicketDataRepository
+import com.wildan.weighbridge.data.datasource.remote.FirebaseRemote
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -22,7 +21,7 @@ import javax.inject.Inject
  */
 
 class TicketDataRepositoryImpl @Inject constructor(
-    private val networkSource: FirebaseManager,
+    private val networkSource: FirebaseRemote,
     private val localSource: TicketManager,
     private val networkCheck: NetworkChecker,
     @IOThread private val ioDispatcher: CoroutineDispatcher,

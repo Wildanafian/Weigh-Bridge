@@ -3,7 +3,7 @@ package com.wildan.weighbridge.domain
 import app.cash.turbine.test
 import com.wildan.weighbridge.core.model.TicketItem
 import com.wildan.weighbridge.core.model.base.RemoteResult
-import com.wildan.weighbridge.domain.repository.TicketDataRepository
+import com.wildan.weighbridge.data.repository.TicketDataRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals

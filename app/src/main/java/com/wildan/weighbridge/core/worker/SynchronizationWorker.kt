@@ -7,7 +7,7 @@ import androidx.work.WorkerParameters
 import com.wildan.weighbridge.core.model.PendingActionOption
 import com.wildan.weighbridge.core.model.base.RemoteResult
 import com.wildan.weighbridge.data.datasource.local.PendingActionManager
-import com.wildan.weighbridge.data.datasource.remote.FirebaseManager
+import com.wildan.weighbridge.data.datasource.remote.FirebaseRemote
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
@@ -18,7 +18,7 @@ import dagger.assisted.AssistedInject
  */
 @HiltWorker
 class SynchronizationWorker @AssistedInject constructor(
-    private val networkSource: FirebaseManager,
+    private val networkSource: FirebaseRemote,
     private val pendingAction: PendingActionManager,
     @Assisted appContext: Context,
     @Assisted private val params: WorkerParameters,

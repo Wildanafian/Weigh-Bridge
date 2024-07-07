@@ -55,27 +55,6 @@
     <dimen name="size_xxxsuper">88dp</dimen>
     <dimen name="size_xxxxsuper">92dp</dimen>
 
-    <dimen name="radius_4">4dp</dimen>
-    <dimen name="radius_8">8dp</dimen>
-    <dimen name="radius_10">10dp</dimen>
-    <dimen name="radius_12">12dp</dimen>
-    <dimen name="radius_20">20dp</dimen>
-    <dimen name="radius_30">30dp</dimen>
-    <dimen name="radius_50">50dp</dimen>
-
-    <!--default text size-->
-    <dimen name="text_default_text_small">14sp</dimen>
-    <dimen name="text_default_text_medium">18sp</dimen>
-    <dimen name="text_default_text_large">22sp</dimen>
-
-    <dimen name="text_default_page_tittle">20sp</dimen>
-    <dimen name="text_default_subtittle1">16sp</dimen>
-    <dimen name="text_default_body2">14sp</dimen>
-
-    <dimen name="fab_main_activity_size">40dp</dimen>
-    <dimen name="fab_main_activity_custom_size">65dp</dimen>
-    <dimen name="loading_dimens_size">72dp</dimen>
-
     <dimen name="size100">100dp</dimen>
     <dimen name="size150">150dp</dimen>
     <dimen name="size180">180dp</dimen>

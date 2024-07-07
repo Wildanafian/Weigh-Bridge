@@ -7,7 +7,6 @@ import com.google.firebase.database.ValueEventListener
 import com.wildan.weighbridge.core.common.di.IOThread
 import com.wildan.weighbridge.core.model.TicketItem
 import com.wildan.weighbridge.core.model.base.RemoteResult
-import com.wildan.weighbridge.data.datasource.remote.FirebaseManager
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.awaitClose
@@ -57,7 +56,7 @@ class FirebaseManagerImpl @Inject constructor(
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val dataList = snapshot.children.mapNotNull { it.getValue(TicketItem::class.java) }
-                val finalData = RemoteResult.OnSuccess(data = dataList)
+                val finalData = RemoteResult.OnSuccess(data = dataList.reversed())
                 trySend(finalData).isSuccess
             }
 

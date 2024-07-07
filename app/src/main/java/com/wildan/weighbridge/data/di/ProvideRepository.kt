@@ -1,9 +1,9 @@
 package com.wildan.weighbridge.data.di
 
+import com.wildan.weighbridge.data.repository.TicketDataRepository
 import com.wildan.weighbridge.data.repository.TicketDataRepositoryImpl
+import com.wildan.weighbridge.data.repository.TicketManagementRepository
 import com.wildan.weighbridge.data.repository.TicketManagementRepositoryImpl
-import com.wildan.weighbridge.domain.repository.TicketDataRepository
-import com.wildan.weighbridge.domain.repository.TicketManagementRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

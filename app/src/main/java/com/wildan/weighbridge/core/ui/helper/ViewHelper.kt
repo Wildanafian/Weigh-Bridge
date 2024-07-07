@@ -1,7 +1,6 @@
 package com.wildan.weighbridge.core.ui.helper
 
 import android.content.Context
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
@@ -9,7 +8,7 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wildan.weighbridge.R
@@ -53,10 +52,10 @@ fun EditText.getWeight() = this.getTexts().ifEmpty { "0" }.toDouble()
 
 fun EditText.isNotEmpty() = this.text.toString().isNotEmpty()
 
-fun EditText.listener(callback: ((Int) -> Unit)? = null) : TextWatcher {
-    return addTextChangedListener(onTextChanged = { count, _, _, _ ->
-        callback?.invoke(count?.length ?: 0)
-    })
+fun EditText.onTextChanged(callback: ((Int) -> Unit)? = null) {
+    doOnTextChanged { editable, _, _, _ ->
+        callback?.invoke(editable.toString().length)
+    }
 }
 
 fun EditText.isLicenseNumberValid(): Boolean {

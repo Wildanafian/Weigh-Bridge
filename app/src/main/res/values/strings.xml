@@ -5,13 +5,11 @@
     <string name="add_ticket">Add New Ticket</string>
     <string name="edit_ticket">Edit Ticket</string>
     <string name="save">Save</string>
-    <string name="input_outbound_weight">Input Outbound Weight</string>
     <string name="outbound_weight">Outbound Weight</string>
-    <string name="input_inbound_weight">Input Inbound Weight</string>
     <string name="inbound_weight">Inbound Weight</string>
-    <string name="input_time">Input Time (HH:MM)</string>
+    <string name="input_time">Input Time</string>
     <string name="time">Time</string>
-    <string name="input_date">Input Date (DD/MM/YYYY)</string>
+    <string name="input_date">Input Date</string>
     <string name="date">Date</string>
     <string name="input_license_number">Input License Number (XX 1234 XXX)</string>
     <string name="license_number">License Number</string>
@@ -44,11 +42,8 @@
     <string name="inbound">Inbound</string>
     <string name="outbound">Outbound</string>
     <string name="select_inbound_date">Select Inbound date</string>
-    <string name="select_inbound_time">Select Inbound time</string>
-    <string name="set_hour_and_minute">%1$s:%2$s</string>
     <string name="ticket_saved_successfully">Ticket Saved Successfully!</string>
     <string name="invalid_license_number">Invalid License Number, Expected Format XX 1234 XXX</string>
-    <string name="invalid_weight">Invalid Weight</string>
     <string name="ticket_changed_successfully">Ticket Changed Successfully!</string>
     <string name="datepicker">datePicker</string>
     <string name="filtersheet">filterSheet</string>

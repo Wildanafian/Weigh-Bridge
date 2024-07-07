@@ -14,7 +14,7 @@ import com.wildan.weighbridge.core.ui.helper.getWeight
 import com.wildan.weighbridge.core.ui.helper.isLicenseNumberValid
 import com.wildan.weighbridge.core.ui.helper.isNotEmpty
 import com.wildan.weighbridge.core.ui.helper.isWeightInRange
-import com.wildan.weighbridge.core.ui.helper.listener
+import com.wildan.weighbridge.core.ui.helper.onTextChanged
 import com.wildan.weighbridge.core.ui.helper.setIsActive
 import com.wildan.weighbridge.core.ui.helper.setToolbarBackNavigationAction
 import com.wildan.weighbridge.databinding.FragmentAddTicketBinding
@@ -46,20 +46,23 @@ open class BaseTicketManagementFragment : BaseFragment<FragmentAddTicketBinding>
             .setTitleText(getString(R.string.select_inbound_date))
             .build()
     }
+    private lateinit var timePicker: TimePickerDialog
 
     @SuppressLint("SimpleDateFormat")
     override fun initListener() {
         bind.toolbar.setToolbarBackNavigationAction(this)
 
         bind.etDate.setOnClickListener {
-            kotlin.runCatching { datePicker.show(childFragmentManager, getString(R.string.datepicker)) }
+            if(datePicker.isAdded) return@setOnClickListener
+            datePicker.show(childFragmentManager, getString(R.string.datepicker))
         }
 
         bind.etTime.setOnClickListener {
-            kotlin.runCatching { showTimePicker() }
+            if(!::timePicker.isInitialized) initTimePicker()
+            else timePicker.show()
         }
 
-        bind.etLicense.listener {
+        bind.etLicense.onTextChanged {
             checkMandatoryFieldIsNotEmpty()
             bind.tilLicense.error = if (!bind.etLicense.isLicenseNumberValid() && it > MIN_5_CHAR) {
                 getString(R.string.invalid_license_number)
@@ -68,7 +71,7 @@ open class BaseTicketManagementFragment : BaseFragment<FragmentAddTicketBinding>
             }
         }
 
-        bind.etDriverName.listener {
+        bind.etDriverName.onTextChanged {
             checkMandatoryFieldIsNotEmpty()
         }
 
@@ -102,20 +105,20 @@ open class BaseTicketManagementFragment : BaseFragment<FragmentAddTicketBinding>
         bind.btnSave.setIsActive(state)
     }
 
-    private fun showTimePicker() {
+    private fun initTimePicker() {
         val calendar = Calendar.getInstance()
         val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
-            calendar.set(Calendar.HOUR_OF_DAY, hour)
-            calendar.set(Calendar.MINUTE, minute)
+            calendar[Calendar.HOUR_OF_DAY] = hour
+            calendar[Calendar.MINUTE] = minute
             bind.etTime.text = SimpleDateFormat(HH_MM, Locale.getDefault()).format(calendar.time)
         }
-        TimePickerDialog(
+        timePicker = TimePickerDialog(
             requireContext(),
             timeSetListener,
-            calendar.get(Calendar.HOUR_OF_DAY),
-            calendar.get(Calendar.MINUTE),
+            calendar[Calendar.HOUR_OF_DAY],
+            calendar[Calendar.MINUTE],
             true
-        ).show()
+        )
     }
 
     protected fun calculateNetWeight() {
