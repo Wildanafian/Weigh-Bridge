@@ -51,6 +51,11 @@ android {
 
     buildFeatures {
         viewBinding true
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.0'
     }
 
 }
@@ -94,6 +99,20 @@ dependencies {
     kapt libs.room.compiler
 
     implementation libs.sqlcipher.android
+    def composeBom = libs.androidx.compose.bom
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+
+    implementation libs.androidx.runtime
+    implementation libs.androidx.ui
+    implementation libs.androidx.foundation
+    implementation libs.androidx.foundation.layout
+    implementation libs.androidx.material
+    implementation libs.androidx.runtime.livedata
+    implementation libs.androidx.ui.tooling
+
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation libs.accompanist.swiperefresh
 }
 
 kapt {

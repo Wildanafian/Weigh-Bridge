@@ -2,6 +2,7 @@ package com.wildan.weighbridge.ui.helper
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
 import org.junit.Rule
 
 /**
@@ -13,9 +14,8 @@ import org.junit.Rule
 open class BaseTestInstantTaskExecutorRule {
 
     @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
-
-    @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
+
+    var testDispatcher = StandardTestDispatcher()
 
 }

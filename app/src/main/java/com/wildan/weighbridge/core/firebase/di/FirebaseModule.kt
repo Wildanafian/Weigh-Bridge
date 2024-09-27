@@ -17,12 +17,16 @@ object FirebaseModule {
     @Provides
     @Singleton
     fun provideFirebaseDatabase(): FirebaseDatabase {
-        return FirebaseDatabase.getInstance(FIREBASE_URL)
+        return FirebaseDatabase.getInstance(FIREBASE_URL).apply {
+            setPersistenceEnabled(true)
+        }
     }
 
     @Provides
     @Singleton
     fun provideChildReference(firebaseDatabase: FirebaseDatabase) =
-        firebaseDatabase.reference.child(FIREBASE_CHILD)
+        firebaseDatabase.reference.child(FIREBASE_CHILD).apply {
+            keepSynced(true)
+        }
 
 }
