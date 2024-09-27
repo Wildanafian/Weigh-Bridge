@@ -3,13 +3,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primary">#3c5337</color>
+    <color name="primary">#27737A</color>
     <color name="secondary">#CEB726</color>
     <color name="yellow">#ffcc56</color>
+    <color name="light_yellow">#FFF8D6</color>
+    <color name="light_green">#D9FFD1</color>
 
     <color name="gray">#9B9B9B</color>
     <color name="gray_border">#DBDBDB</color>
 
-    <color name="ic_launcher_background">#286536</color>
+    <color name="ic_launcher_background">#223D83</color>
 
 </resources>

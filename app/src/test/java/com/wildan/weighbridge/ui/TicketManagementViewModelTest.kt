@@ -11,9 +11,14 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.verify
 import io.mockk.verifySequence
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 
 /*
@@ -43,13 +48,28 @@ class TicketManagementViewModelTest : BaseTestInstantTaskExecutorRule() {
         netWeight = 40.0
     )
 
+    @Before
+    fun setup() {
+        sut.addNewTicket.observeForever(observerAddNewTicket)
+        sut.editTicket.observeForever(observerEditTicket)
+        sut.deleteTicket.observeForever(observerDeleteTicket)
+        Dispatchers.setMain(testDispatcher)
+    }
+
+    @After
+    fun tearDown() {
+        sut.addNewTicket.removeObserver(observerAddNewTicket)
+        sut.editTicket.removeObserver(observerEditTicket)
+        sut.deleteTicket.removeObserver(observerDeleteTicket)
+        Dispatchers.resetMain()
+    }
+
     @Test
-    fun submitNewTicket_givenValidTicketItem_returnsOnSuccessUpdatesLiveData() = runBlocking {
+    fun submitNewTicket_givenValidTicketItem_returnsOnSuccessUpdatesLiveData() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnSuccess("S")
         coEvery { useCase.addNewTicket(ticket) } returns useCaseResponse
-        sut.addNewTicket.observeForever(observerAddNewTicket)
         sut.submitNewTicket(ticket)
-        delay(200)
+        advanceUntilIdle()
 
         verifySequence {
             observerAddNewTicket.onChanged(UIStateData(loading = true))
@@ -58,16 +78,14 @@ class TicketManagementViewModelTest : BaseTestInstantTaskExecutorRule() {
 
         verify(exactly = 2) { observerAddNewTicket.onChanged(any()) }
 
-        sut.addNewTicket.removeObserver(observerAddNewTicket)
     }
 
     @Test
-    fun submitNewTicket_givenValidTicketItem_returnsOnErrorUpdatesLiveData() = runBlocking {
+    fun submitNewTicket_givenValidTicketItem_returnsOnErrorUpdatesLiveData() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnError<String>("S")
         coEvery { useCase.addNewTicket(ticket) } returns useCaseResponse
-        sut.addNewTicket.observeForever(observerAddNewTicket)
         sut.submitNewTicket(ticket)
-        delay(200)
+        advanceUntilIdle()
 
         verifySequence {
             observerAddNewTicket.onChanged(UIStateData(loading = true))
@@ -75,17 +93,14 @@ class TicketManagementViewModelTest : BaseTestInstantTaskExecutorRule() {
         }
 
         verify(exactly = 2) { observerAddNewTicket.onChanged(any()) }
-
-        sut.addNewTicket.removeObserver(observerAddNewTicket)
     }
 
     @Test
-    fun submitEditedTicket_givenValidTicketItem_returnsOnSuccessUpdatesLiveData() = runBlocking {
+    fun submitEditedTicket_givenValidTicketItem_returnsOnSuccessUpdatesLiveData() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnSuccess("S")
         coEvery { useCase.editTicket(ticket) } returns useCaseResponse
-        sut.editTicket.observeForever(observerEditTicket)
         sut.submitEditedTicket(ticket)
-        delay(200)
+        advanceUntilIdle()
 
         verifySequence {
             observerEditTicket.onChanged(UIStateData(loading = true))
@@ -93,17 +108,14 @@ class TicketManagementViewModelTest : BaseTestInstantTaskExecutorRule() {
         }
 
         verify(exactly = 2) { observerEditTicket.onChanged(any()) }
-
-        sut.editTicket.removeObserver(observerEditTicket)
     }
 
     @Test
-    fun submitEditedTicket_givenValidTicketItem_returnsOnErrorUpdatesLiveData() = runBlocking {
+    fun submitEditedTicket_givenValidTicketItem_returnsOnErrorUpdatesLiveData() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnError<String>("S")
         coEvery { useCase.deleteTicket(ticket.id) } returns useCaseResponse
-        sut.deleteTicket.observeForever(observerDeleteTicket)
         sut.deleteTicket(ticket.id)
-        delay(200)
+        advanceUntilIdle()
 
         verifySequence {
             observerDeleteTicket.onChanged(UIStateData(loading = true))
@@ -111,17 +123,14 @@ class TicketManagementViewModelTest : BaseTestInstantTaskExecutorRule() {
         }
 
         verify(exactly = 2) { observerDeleteTicket.onChanged(any()) }
-
-        sut.editTicket.removeObserver(observerDeleteTicket)
     }
 
     @Test
-    fun deleteTicket_givenValidTicketId_returnsOnSuccessUpdatesLiveData() = runBlocking {
+    fun deleteTicket_givenValidTicketId_returnsOnSuccessUpdatesLiveData() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnSuccess("S")
         coEvery { useCase.editTicket(ticket) } returns useCaseResponse
-        sut.editTicket.observeForever(observerEditTicket)
         sut.submitEditedTicket(ticket)
-        delay(200)
+        advanceUntilIdle()
 
         verifySequence {
             observerEditTicket.onChanged(UIStateData(loading = true))
@@ -129,18 +138,14 @@ class TicketManagementViewModelTest : BaseTestInstantTaskExecutorRule() {
         }
 
         verify(exactly = 2) { observerEditTicket.onChanged(any()) }
-
-        sut.editTicket.removeObserver(observerEditTicket)
-        sut.deleteTicket.removeObserver(observerDeleteTicket)
     }
 
     @Test
-    fun deleteTicket_givenValidTicketId_returnsOnErrorUpdatesLiveData() = runBlocking {
+    fun deleteTicket_givenValidTicketId_returnsOnErrorUpdatesLiveData() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnError<String>("S")
         coEvery { useCase.deleteTicket(ticket.id) } returns useCaseResponse
-        sut.deleteTicket.observeForever(observerDeleteTicket)
         sut.deleteTicket(ticket.id)
-        delay(200)
+        advanceUntilIdle()
 
         verifySequence {
             observerDeleteTicket.onChanged(UIStateData(loading = true))
@@ -148,8 +153,6 @@ class TicketManagementViewModelTest : BaseTestInstantTaskExecutorRule() {
         }
 
         verify(exactly = 2) { observerDeleteTicket.onChanged(any()) }
-
-        sut.deleteTicket.removeObserver(observerDeleteTicket)
     }
 
 }

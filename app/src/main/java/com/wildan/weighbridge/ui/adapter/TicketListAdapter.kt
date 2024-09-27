@@ -3,11 +3,10 @@ package com.wildan.weighbridge.ui.adapter
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.wildan.weighbridge.R
 import com.wildan.weighbridge.core.model.TicketItem
 import com.wildan.weighbridge.core.ui.base.BaseRecycleViewAdapter
-import com.wildan.weighbridge.core.ui.helper.textColorAndBackground
 import com.wildan.weighbridge.databinding.ItemTicketBinding
+import com.wildan.weighbridge.ui.compose.TicketItem
 
 /*
  * Created by Wildan Nafian on 17/05/24.
@@ -16,7 +15,7 @@ import com.wildan.weighbridge.databinding.ItemTicketBinding
  */
 
 class TicketListAdapter(fragment: Fragment) :
-        BaseRecycleViewAdapter<TicketItem, TicketListAdapter.ViewHolder>(fragment) {
+    BaseRecycleViewAdapter<TicketItem, TicketListAdapter.ViewHolder>(fragment) {
 
     companion object {
 
@@ -31,31 +30,17 @@ class TicketListAdapter(fragment: Fragment) :
     }
 
     override fun getBindViewHolder(holder: ViewHolder, position: Int, data: TicketItem) {
-        holder.binding(data)
-        holder.itemView.setOnClickListener {
-            onTapTicket?.invoke(data)
-        }
+        holder.binding(data, onTapTicket)
     }
 
-    inner class ViewHolder(private val bind: ItemTicketBinding) : RecyclerView.ViewHolder(bind.root) {
+    inner class ViewHolder(private val bind: ItemTicketBinding) :
+        RecyclerView.ViewHolder(bind.root) {
 
-        fun binding(data: TicketItem) {
-            bind.tvTicketId.text = data.id.drop(FIRST_CHAR)
-            bind.tvDriverName.text = data.driverName
-            bind.tvLicenseNumber.text = data.licenseNumber
-            bind.tvNetWeight.text = bind.tvTicketStatus.context?.getString(
-                R.string.set_tonnage, data.netWeight.toString()
-            )
-            bind.tvTicketDate.text = data.date
-            bind.tvTicketTime.text = data.time
-
-            if (data.outboundWeight == ZERO) {
-                bind.tvTicketStatus.text = bind.tvTicketStatus.context?.getString(R.string.inbound)
-                bind.tvTicketStatus.textColorAndBackground(R.color.yellow, R.drawable.bg_light_yellow_r6)
-
-            } else {
-                bind.tvTicketStatus.text = bind.tvTicketStatus.context?.getString(R.string.outbound)
-                bind.tvTicketStatus.textColorAndBackground(R.color.primary, R.drawable.bg_light_green_r6)
+        fun binding(data: TicketItem, onTapTicket: ((TicketItem) -> Unit)?) {
+            bind.root.setContent {
+                TicketItem(data){
+                    onTapTicket?.invoke(data)
+                }
             }
         }
     }

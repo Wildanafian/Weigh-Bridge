@@ -15,10 +15,15 @@ import io.mockk.mockk
 import io.mockk.verify
 import io.mockk.verifySequence
 import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 
 /*
@@ -34,7 +39,8 @@ class TicketViewModelTest : BaseTestInstantTaskExecutorRule() {
     private val filterAnSortUseCase: FilterAndSortTicketsUseCase = mockk()
 
     private val sut = TicketViewModel(ticketUseCase, filterAnSortUseCase)
-    private val observerTicketList: Observer<UIStateData<List<TicketItem>>> = mockk(relaxUnitFun = true)
+    private val observerTicketList: Observer<UIStateData<List<TicketItem>>> =
+        mockk(relaxUnitFun = true)
 
     private val ticketList = listOf(
         TicketItem(
@@ -69,52 +75,62 @@ class TicketViewModelTest : BaseTestInstantTaskExecutorRule() {
         ),
     )
 
+    @Before
+    fun setup() {
+        sut.ticketList.observeForever(observerTicketList)
+        Dispatchers.setMain(testDispatcher)
+    }
+
+    @After
+    fun tearDown() {
+        sut.ticketList.removeObserver(observerTicketList)
+        Dispatchers.resetMain()
+    }
+
     @Test
-    fun getTicketList_onSuccess_updatesLiveDataWithTicketList() = runBlocking {
+    fun getTicketList_onSuccess_updatesLiveDataWithTicketList() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnSuccess(ticketList)
         coEvery { ticketUseCase.getTicketList() } returns flowOf(useCaseResponse)
-        sut.ticketList.observeForever(observerTicketList)
         sut.getTicketList()
-        delay(200)
 
+        advanceUntilIdle()
         verifySequence {
             observerTicketList.onChanged(UIStateData(loading = true))
             observerTicketList.onChanged(UIStateData(loading = false, data = ticketList))
         }
 
         verify(exactly = 2) { observerTicketList.onChanged(any()) }
-
-        sut.ticketList.removeObserver(observerTicketList)
     }
 
     @Test
-    fun getTicketList_onError_updatesLiveDataWithErrorMessage() = runBlocking {
+    fun getTicketList_onError_updatesLiveDataWithErrorMessage() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnError(data = ticketList, message = "s")
         coEvery { ticketUseCase.getTicketList() } returns flowOf(useCaseResponse)
-        sut.ticketList.observeForever(observerTicketList)
         sut.getTicketList()
-        delay(200)
 
+        advanceUntilIdle()
         verifySequence {
             observerTicketList.onChanged(UIStateData(loading = true))
-            observerTicketList.onChanged(UIStateData(loading = false, data = ticketList, message = "s"))
+            observerTicketList.onChanged(
+                UIStateData(
+                    loading = false,
+                    data = ticketList,
+                    message = "s"
+                )
+            )
         }
 
         verify(exactly = 2) { observerTicketList.onChanged(any()) }
-
-        sut.ticketList.removeObserver(observerTicketList)
     }
 
     @Test
-    fun getSortedList_givenSortOptionDate_sortsListByDate() = runBlocking {
+    fun getSortedList_givenSortOptionDate_sortsListByDate() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnSuccess(ticketList)
         coEvery { ticketUseCase.getTicketList() } returns flowOf(useCaseResponse)
         coEvery { filterAnSortUseCase.sortByDate(ticketList) } returns ticketList
         sut.getTicketList()
-        delay(200)
-
         sut.getSortedList(SortFilterOption.DATE)
-        delay(200)
+        advanceUntilIdle()
 
         val expected = listOf("23ih8dd", "dnjdic0", "zcvope")
         val result = sut.ticketList.value?.data?.map { it.id }
@@ -123,7 +139,7 @@ class TicketViewModelTest : BaseTestInstantTaskExecutorRule() {
     }
 
     @Test
-    fun getSortedList_givenSortOptionDriverName_sortsListByDriverName() = runBlocking {
+    fun getSortedList_givenSortOptionDriverName_sortsListByDriverName() = runTest(testDispatcher) {
         val expectedOrder = listOf(
             TicketItem(
                 id = "zcvope",
@@ -143,27 +159,23 @@ class TicketViewModelTest : BaseTestInstantTaskExecutorRule() {
         coEvery { ticketUseCase.getTicketList() } returns flowOf(useCaseResponse)
         coEvery { filterAnSortUseCase.sortByDriverName(ticketList) } returns expectedOrder
         sut.getTicketList()
-        delay(200)
-
         sut.getSortedList(SortFilterOption.DRIVER_NAME)
-        delay(200)
+        advanceUntilIdle()
 
-        val expected = listOf("zcvope", "23ih8dd","dnjdic0")
+        val expected = listOf("zcvope", "23ih8dd", "dnjdic0")
         val result = sut.ticketList.value?.data?.map { it.id }
         assertEquals(expected, result)
         coVerify { filterAnSortUseCase.sortByDriverName(ticketList) }
     }
 
     @Test
-    fun getSortedList_givenSortOptionLicenseNumber_sortsListByLicenseNumber() = runBlocking {
+    fun getSortedList_givenSortOptionLicenseNumber_sortsListByLicenseNumber() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnSuccess(ticketList)
         coEvery { ticketUseCase.getTicketList() } returns flowOf(useCaseResponse)
         coEvery { filterAnSortUseCase.sortByLicenseNumber(ticketList) } returns ticketList
         sut.getTicketList()
-        delay(200)
-
         sut.getSortedList(SortFilterOption.LICENSE_NUMBER)
-        delay(200)
+        advanceUntilIdle()
 
         val expected = listOf("23ih8dd", "dnjdic0", "zcvope")
         val result = sut.ticketList.value?.data?.map { it.id }
@@ -172,25 +184,29 @@ class TicketViewModelTest : BaseTestInstantTaskExecutorRule() {
     }
 
     @Test
-    fun getSortedList_givenNoSortOptionLicenseNumber_returnsFullTicketList() = runBlocking {
+    fun getSortedList_givenNoSortOptionLicenseNumber_returnsFullTicketList() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnSuccess(ticketList)
         coEvery { ticketUseCase.getTicketList() } returns flowOf(useCaseResponse)
         sut.getSortedList(SortFilterOption.NO_SORT_FILTER)
-        delay(200)
+        advanceUntilIdle()
+
         verify { ticketUseCase.getTicketList() }
     }
 
     @Test
-    fun getFilteredList_givenFilterOptionDate_filtersListByDate() = runBlocking {
+    fun getFilteredList_givenFilterOptionDate_filtersListByDate() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnSuccess(ticketList)
         val keyword = "11/11/11"
         coEvery { ticketUseCase.getTicketList() } returns flowOf(useCaseResponse)
-        coEvery { filterAnSortUseCase.filterByDate(ticketList, keyword) } returns listOf(ticketList[0])
+        coEvery {
+            filterAnSortUseCase.filterByDate(
+                ticketList,
+                keyword
+            )
+        } returns listOf(ticketList[0])
         sut.getTicketList()
-        delay(200)
-
         sut.getFilteredList(SortFilterOption.DATE, keyword)
-        delay(200)
+        advanceUntilIdle()
 
         val expected = listOf(ticketList[0])
         val result = sut.ticketList.value?.data
@@ -199,16 +215,16 @@ class TicketViewModelTest : BaseTestInstantTaskExecutorRule() {
     }
 
     @Test
-    fun getFilteredList_givenFilterOptionDriverName_filtersListByDriverName() = runBlocking {
+    fun getFilteredList_givenFilterOptionDriverName_filtersListByDriverName() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnSuccess(ticketList)
         val keyword = "Joko"
         coEvery { ticketUseCase.getTicketList() } returns flowOf(useCaseResponse)
-        coEvery { filterAnSortUseCase.filterByDriverName(ticketList, keyword) } returns listOf(ticketList[0])
+        coEvery { filterAnSortUseCase.filterByDriverName(ticketList, keyword) } returns listOf(
+            ticketList[0]
+        )
         sut.getTicketList()
-        delay(200)
-
         sut.getFilteredList(SortFilterOption.DRIVER_NAME, keyword)
-        delay(200)
+        advanceUntilIdle()
 
         val expected = listOf(ticketList[0])
         val result = sut.ticketList.value?.data
@@ -217,16 +233,17 @@ class TicketViewModelTest : BaseTestInstantTaskExecutorRule() {
     }
 
     @Test
-    fun getFilteredList_givenFilterOptionLicenseNumber_filtersListByLicenseNumber() = runBlocking {
+    fun getFilteredList_givenFilterOptionLicenseNumber_filtersListByLicenseNumber() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnSuccess(ticketList)
         val keyword = "AB 1234 YY"
         coEvery { ticketUseCase.getTicketList() } returns flowOf(useCaseResponse)
-        coEvery { filterAnSortUseCase.filterByLicenseNumber(ticketList, keyword) } returns listOf(ticketList[1], ticketList[2])
+        coEvery { filterAnSortUseCase.filterByLicenseNumber(ticketList, keyword) } returns listOf(
+            ticketList[1],
+            ticketList[2]
+        )
         sut.getTicketList()
-        delay(200)
-
         sut.getFilteredList(SortFilterOption.LICENSE_NUMBER, keyword)
-        delay(200)
+        advanceUntilIdle()
 
         val expected = listOf(ticketList[1], ticketList[2])
         val result = sut.ticketList.value?.data
@@ -235,11 +252,12 @@ class TicketViewModelTest : BaseTestInstantTaskExecutorRule() {
     }
 
     @Test
-    fun getFilteredList_givenNoSortFilterOption_returnsFullTicketList() = runBlocking {
+    fun getFilteredList_givenNoSortFilterOption_returnsFullTicketList() = runTest(testDispatcher) {
         val useCaseResponse = RemoteResult.OnSuccess(ticketList)
         coEvery { ticketUseCase.getTicketList() } returns flowOf(useCaseResponse)
         sut.getFilteredList(SortFilterOption.NO_SORT_FILTER, "")
-        delay(200)
+        advanceUntilIdle()
+
         verify { ticketUseCase.getTicketList() }
     }
 
