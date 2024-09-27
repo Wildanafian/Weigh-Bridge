@@ -4,6 +4,7 @@ This app was initially built to practice data caching before entering SPECTIV. B
 
 Some of the technologies used in this project are listed below:
 
+
 * Language : Kotlin
 * Dependency Injection : Hilt
 * UI : XML & Compose
@@ -12,6 +13,17 @@ Some of the technologies used in this project are listed below:
 * Reactive Programming : LiveData & Kotlin Flow
 * Storage : Room Database & Firebase Realtime Database
 * Unit Testing : MockK, Turbine
+
+
+In case you need a sample app to run, you can find it [here](https://github.com/Wildanafian/Weigh-Bridge/tree/main/apk).
+
+The app contains three main screens (Front Page, Add New Ticket, and Edit Ticket). On the front page, users can see the list of tickets. When a user taps a ticket, a bottom sheet dialog will appear, allowing the user to view the ticket details, edit the ticket, or delete the ticket.
+
+## Screenshot
+![Front Page](https://github.com/Wildanafian/Weigh-Bridge/blob/main/screenshot/Screenshot%20at%20Jul%2007%2021-52-01.png)
+![Front Page](https://github.com/Wildanafian/Weigh-Bridge/blob/main/screenshot/Screenshot%20at%20Jul%2007%2021-52-28.png)
+![Front Page](https://github.com/Wildanafian/Weigh-Bridge/blob/main/screenshot/Screenshot%20at%20Jul%2007%2021-53-06.png)
+
 
 ## Background Worker
 This worker is responsible for synchronizing data with Firebase. The first step is to fetch data from Room and check if there are any pending actions. If pending actions exist, the worker pushes the data to Firebase and removes the corresponding data from the local database.
@@ -26,6 +38,7 @@ override suspend fun doWork(): Result {
                         is RemoteResult.OnSuccess -> {
                             pendingAction.deletePendingActionById(pending.id)
                         }
+
 
                         else                      -> {
                             return Result.retry()
@@ -159,3 +172,4 @@ override fun initView() {
         }
     }
 ```
+
