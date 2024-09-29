@@ -20,9 +20,11 @@ In case you need a sample app to run, you can find it [here](https://github.com/
 The app contains three main screens (Front Page, Add New Ticket, and Edit Ticket). On the front page, users can see the list of tickets. When a user taps a ticket, a bottom sheet dialog will appear, allowing the user to view the ticket details, edit the ticket, or delete the ticket.
 
 ## Screenshot
-![Front Page](https://github.com/Wildanafian/Weigh-Bridge/blob/main/screenshot/Screenshot%20at%20Jul%2007%2021-52-01.png)
-![Front Page](https://github.com/Wildanafian/Weigh-Bridge/blob/main/screenshot/Screenshot%20at%20Jul%2007%2021-52-28.png)
-![Front Page](https://github.com/Wildanafian/Weigh-Bridge/blob/main/screenshot/Screenshot%20at%20Jul%2007%2021-53-06.png)
+<div style="display: flex; flex-direction: column; align-items: center;">
+  <img src="https://github.com/Wildanafian/Weigh-Bridge/blob/main/screenshot/Screenshot%20at%20Jul%2007%2021-52-01.png" alt="Front Page" width="300"/>
+  <img src="https://github.com/Wildanafian/Weigh-Bridge/blob/main/screenshot/Screenshot%20at%20Jul%2007%2021-52-28.png" alt="Front Page" width="300"/>
+  <img src="https://github.com/Wildanafian/Weigh-Bridge/blob/main/screenshot/Screenshot%20at%20Jul%2007%2021-53-06.png" alt="Front Page" width="300"/>
+</div>
 
 
 ## Background Worker
